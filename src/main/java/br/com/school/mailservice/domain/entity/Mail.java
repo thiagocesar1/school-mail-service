@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,13 +22,13 @@ public class Mail {
     private String id;
 
     @Field
-    private TemplateMail templateMail;
+    private TemplateMail mailType;
 
     @Field
-    private String attributes;
+    private Map<String, String> attributes;
 
     @Field
-    private String receiver;
+    private String mailTo;
 
     @Field
     private LocalDate dateSanded;
