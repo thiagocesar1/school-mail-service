@@ -11,3 +11,11 @@ spring:
     mongodb:
       uri: mongodb://admin:admin@localhost:27018/?authSource=admin
       database: mail-db
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: school.mailspring@gmail.com
+    password: zrytdlyaojafcrrr
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
