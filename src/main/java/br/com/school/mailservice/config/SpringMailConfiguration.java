@@ -1,7 +1,9 @@
 package br.com.school.mailservice.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -13,9 +15,10 @@ import java.util.Collections;
 public class SpringMailConfiguration {
 
     @Bean
+    @Primary
     public ITemplateResolver thymeleafTemplateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("templates/");
+        templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setResolvablePatterns(Collections.singleton("html/*"));
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");

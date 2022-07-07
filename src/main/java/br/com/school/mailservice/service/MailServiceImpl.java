@@ -40,7 +40,7 @@ public class MailServiceImpl implements MailService{
         message.setFrom("SchoolApp");
         message.setTo(to);
 
-        final String htmlContent = this.thymeleafTemplateEngine.process("templates/lead-created-mail.html", thymeleafContext);
+        final String htmlContent = this.thymeleafTemplateEngine.process("lead-created-mail.html", thymeleafContext);
         message.setText(htmlContent, true);
 
         javaMailSender.send(mimeMessage);
