@@ -2,30 +2,47 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            font-size: 48px;
-        }
-    </style>
 </head>
 <body>
-<p th:text="${'Ola, ' + name}">
-    Ola
-</p>
-<p>
-     O seu cadastro foi realizado em nossa plataforma. <br>
-     Para completar o cadastro, clique no botao abaixo e siga o passo-a-passo.
-</p>
-<p>
-    <a th:href="${registerLink}">
-        <button style="background: #069cc2; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">
-            Clique aqui
-        </button>
-    </a>
-</p>
-<p>
-    <b>SchoolApp</b>
-</p>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+    <tr>
+        <td align="center" bgcolor="#391847" style="padding: 40px 0 30px 0;">
+            <img src="cid:schoolapp.png" alt="SchoolApp Logo" width="300" height="230" style="display: block;" />
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
+                        <span th:text="${'Ola, ' + name}">
+                            Ola
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; padding: 20px 0 30px 0;">
+                        O seu cadastro foi realizado em nossa plataforma. <br>
+                        Para completar o cadastro, clique no botao abaixo e siga o passo-a-passo.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; padding: 20px 0 30px 0;">
+                        <a th:href="${registerLink}">
+                            <button style="background: #069cc2; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">
+                                Clique aqui
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="black">
+            Footer
+        </td>
+    </tr>
+</table>
 </body>
 </html>
