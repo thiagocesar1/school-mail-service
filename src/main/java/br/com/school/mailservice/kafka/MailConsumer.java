@@ -28,6 +28,6 @@ public class MailConsumer {
     public void sendMail(String mailString) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
         Mail mail = objectMapper.readValue(mailString, Mail.class);
         logger.info("Message for {} received.", mail.getMailTo());
-        mailService.sendMail(mail);
+        mailService.saveMail(mail);
     }
 }

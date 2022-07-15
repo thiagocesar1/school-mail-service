@@ -6,5 +6,5 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 public interface MailService {
-    void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException;
+    void saveMail(Mail mail) throws MessagingException, UnsupportedEncodingException;
 }

@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -33,29 +34,37 @@ public class MailServiceImpl implements MailService{
     @Value("classpath:/templates/logo.png")
     private Resource resourceFile;
 
+    @Value("${spring.mail.username}")
+    private String mailFrom;
+
     @Override
-    public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException {
+    @Transactional
+    public void saveMail(Mail mail) throws MessagingException, UnsupportedEncodingException {
         mail.setDateSanded(LocalDate.now());
-        sendEmail(mail.getMailTo(), mail.getMailType().getSubject(), mail.getAttributes());
+        sendEmail(mail);
         mailRepository.save(mail);
     }
 
-    public void sendEmail(
-            String to, String subject, Map<String, String> templateModel) throws MessagingException, UnsupportedEncodingException {
+    private void sendEmail(Mail mail) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = this.createMessageData(mail);
+        javaMailSender.send(message);
+    }
+
+    private MimeMessage createMessageData(Mail mail) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
         Context context = new Context();
-        context.setVariable("name", templateModel.get("userName"));
-        context.setVariable("registerLink", templateModel.get("registerLink"));
+        mail.getAttributes().forEach((key, value) -> context.setVariable(key, value));
 
-        String html = springTemplateEngine.process("lead-created-mail", context);
-        helper.setTo(to);
-        helper.setFrom("spring.mailspring@gmail.com", "SchoolApp");
+        String html = springTemplateEngine.process(mail.getMailType().getTemplateName(), context);
+        helper.setTo(mail.getMailTo());
+        helper.setFrom(mailFrom, "SchoolApp");
         helper.setText(html, true);
-        helper.setSubject(subject);
-        helper.addInline("schoolapp.png", resourceFile);
-        javaMailSender.send(message);
+        helper.setSubject(mail.getMailType().getSubject());
+        helper.addInline("logo.png", resourceFile);
+
+        return message;
     }
 }
