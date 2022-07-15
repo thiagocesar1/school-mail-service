@@ -11,6 +11,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class MailConsumer {
@@ -24,7 +25,7 @@ public class MailConsumer {
     private ObjectMapper objectMapper;
 
     @KafkaListener(topics = topic)
-    public void sendMail(String mailString) throws JsonProcessingException, MessagingException {
+    public void sendMail(String mailString) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
         Mail mail = objectMapper.readValue(mailString, Mail.class);
         logger.info("Message for {} received.", mail.getMailTo());
         mailService.sendMail(mail);

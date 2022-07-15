@@ -14,6 +14,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Map;
@@ -33,14 +34,14 @@ public class MailServiceImpl implements MailService{
     private Resource resourceFile;
 
     @Override
-    public void sendMail(Mail mail) throws MessagingException {
+    public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException {
         mail.setDateSanded(LocalDate.now());
         sendEmail(mail.getMailTo(), mail.getMailType().getSubject(), mail.getAttributes());
         mailRepository.save(mail);
     }
 
     public void sendEmail(
-            String to, String subject, Map<String, String> templateModel) throws MessagingException {
+            String to, String subject, Map<String, String> templateModel) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
@@ -51,6 +52,7 @@ public class MailServiceImpl implements MailService{
 
         String html = springTemplateEngine.process("lead-created-mail", context);
         helper.setTo(to);
+        helper.setFrom("spring.mailspring@gmail.com", "SchoolApp");
         helper.setText(html, true);
         helper.setSubject(subject);
         helper.addInline("schoolapp.png", resourceFile);
