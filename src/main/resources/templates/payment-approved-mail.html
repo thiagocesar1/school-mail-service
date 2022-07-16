@@ -7,7 +7,7 @@
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
     <tr>
         <td align="center" bgcolor="#391847" style="padding: 40px 0 30px 0;">
-            <img src="cid:schoolapp.png" alt="SchoolApp Logo" width="300" height="230" style="display: block;" />
+            <img src="cid:logo.png" alt="SchoolApp Logo" width="300" height="230" style="display: block;" />
         </td>
     </tr>
     <tr>
@@ -15,7 +15,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
-                        <span th:text="${'Olá ' + name + ','}">
+                        <span th:text="${'Olá ' + userName + ','}">
                             Olá
                         </span>
                     </td>
@@ -23,6 +23,24 @@
                 <tr>
                     <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; padding: 20px 0 30px 0;">
                         Seu pagamento foi aprovado. Em breve, você receberá um e-mail com as instruções de acesso à plataforma.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; padding: 20px 0 30px 0;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td><b>Nome: </b></td>
+                                <td th:text="${nameOnCard}"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Cartão: </b></td>
+                                <td th:text="${cardNumber}"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tipo do Cartão:</b></td>
+                                <td th:text="${cardType}"></td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
